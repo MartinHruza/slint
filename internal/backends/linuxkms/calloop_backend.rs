@@ -24,7 +24,7 @@ use crate::fullscreenwindowadapter::FullscreenWindowAdapter;
     target_os = "ios",
     target_arch = "wasm32"
 )))]
-mod input;
+// mod input;
 
 #[derive(Clone)]
 struct Proxy {
@@ -216,12 +216,12 @@ impl i_slint_core::platform::Platform for Backend {
         *self.proxy.loop_signal.lock().unwrap() = Some(loop_signal.clone());
         let quit_loop = self.proxy.quit_loop.clone();
 
-        let mouse_position_property = input::LibInputHandler::init(
-            &self.window,
-            &event_loop.handle(),
-            #[cfg(feature = "libseat")]
-            &self.seat,
-        )?;
+        // let mouse_position_property = input::LibInputHandler::init(
+        //     &self.window,
+        //     &event_loop.handle(),
+        //     #[cfg(feature = "libseat")]
+        //     &self.seat,
+        // )?;
 
         let Some(user_event_receiver) = self.user_event_receiver.borrow_mut().take() else {
             return Err(
@@ -260,9 +260,9 @@ impl i_slint_core::platform::Platform for Backend {
                 callback();
             }
 
-            if let Some(adapter) = self.window.borrow().as_ref() {
-                adapter.clone().render_if_needed(mouse_position_property.as_ref())?;
-            };
+            //if let Some(adapter) = self.window.borrow().as_ref() {
+            //    adapter.clone().render_if_needed(mouse_position_property.as_ref())?;
+            //};
 
             let next_timeout = i_slint_core::platform::duration_until_next_timer_update();
             event_loop
